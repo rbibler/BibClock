@@ -34,7 +34,7 @@ void app_main(void)
   initTimeManager();
   sevenDigitInit();
   setAlarm(17, 18);
-  setAlarmOffTime(2);
+  setAlarmOffTime(3);
   while (true) {
     updateDisplay();
     long time = (xTaskGetTickCount() / portTICK_PERIOD_MS);
