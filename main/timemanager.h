@@ -1,11 +1,11 @@
 #include "nettime.h"
 
-bool alarmSet;
-bool alarmOn;
 int alarmHour;
 int alarmMinutes;
 int alarmOffTime;
+int alarmTimeoutTimeStart;
 int alarmLengthInMins;
+int alarmTimeoutTime;
 
 #define ALARM_OFF           0x00
 #define ALARM_SET           0x01
@@ -17,8 +17,9 @@ struct tm timeinfo;
 int alarmState;
 
 void initTimeManager(void);
-void setAlarm(int hour, int minutes);
-void setAlarmOffTime(int timeInMinutes);
+void setAlarm(int hour, int minutes, int lengthInMinutes);
+void setAlarmTimeout(int timeOutInMinutes);
 bool checkAlarmOn(void);
 void calculateAlarmOffTime(void);
+void calculateAlarmTimeOutBeginTime(void);
 int getTimeInMinutes(void);

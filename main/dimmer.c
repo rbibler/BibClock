@@ -95,7 +95,7 @@ void init_pwm_channels(void) {
 // reverse order)
 void setDimmer(int value) {
   for(int i = 10; i < 16; i++) {
-    gsValues[i] = value;
+    gsValues[i] = value <= MAX_VALUE ? value : MAX_VALUE;
   }
   setGrayscale();
 }

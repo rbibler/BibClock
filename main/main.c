@@ -31,6 +31,7 @@ static const char *TAG = "example";
 int curDimmer = 0;
 
 void updateTimeDigits(void);
+void alarm_check(void);
 
 void app_main(void)
 {
@@ -38,10 +39,8 @@ void app_main(void)
   sevenDigitInit();
   dimmerInit();
   setDimmer(1);
-  setAlarm(20, 15);
-  setAlarmOffTime(10);
-
-
+  setAlarm(7, 44, 20);
+  setAlarmTimeout(4);
   while (true) {
     updateDisplay();
     long time = (xTaskGetTickCount() / portTICK_PERIOD_MS);
@@ -58,26 +57,28 @@ void app_main(void)
 // Otherwise the brightness increases too quickly.
 // rate is calculated based on growth from 1 to 512 in 20 minutes.
 // TO-DO: Calculate rate based on arbitrary time.
-bool exponential_led_dimmer_increase(void) {
+void exponential_led_dimmer_increase(void) {
   double rateTime = .0026 * curDimmer;
   double newDim = exp(rateTime);
   setDimmer((int) newDim);
   curDimmer++;
   if(curDimmer >= 2400) {
     curDimmer = 2400;
-    return true;
   }
 }
 
 void alarm_check() {
   if(checkAlarmOn()) {
+    // Alarm is currently on, so check if dimmer has started
+    // If not, set to 1 to get things going.
     if(curDimmer == 0) {
       curDimmer = 1;
     }
-    if(exponential_led_dimmer_increase()) {
-      
-    }
+    // Increase dimmer for duration of alarm. This function handles the
+    // Maximum brightness so there's no overshoot.
+    exponential_led_dimmer_increase();
   } else {
+    // Alarm is off, so turn off the dimmer.
     if(curDimmer > 0) {
       curDimmer = 0;
       setDimmer(0);

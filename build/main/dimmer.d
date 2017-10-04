@@ -107,9 +107,6 @@ dimmer.o: /home/ryan/projects/BibClock/firmware/main/./dimmer.c \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h \
- /home/ryan/esp/esp-idf/components/driver/include/driver/timer.h \
- /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h \
- /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h \
  /home/ryan/esp/esp-idf/components/driver/include/driver/ledc.h \
  /home/ryan/esp/esp-idf/components/driver/include/driver/periph_ctrl.h \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
@@ -331,12 +328,6 @@ dimmer.o: /home/ryan/projects/BibClock/firmware/main/./dimmer.c \
 /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h:
 
 /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h:
-
-/home/ryan/esp/esp-idf/components/driver/include/driver/timer.h:
-
-/home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h:
-
-/home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h:
 
 /home/ryan/esp/esp-idf/components/driver/include/driver/ledc.h:
 

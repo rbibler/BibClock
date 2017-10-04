@@ -126,9 +126,6 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
  /home/ryan/projects/BibClock/firmware/main/./timemanager.h \
  /home/ryan/projects/BibClock/firmware/main/./nettime.h \
  /home/ryan/projects/BibClock/firmware/main/./dimmer.h \
- /home/ryan/esp/esp-idf/components/driver/include/driver/timer.h \
- /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h \
- /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h \
  /home/ryan/esp/esp-idf/components/driver/include/driver/ledc.h \
  /home/ryan/esp/esp-idf/components/driver/include/driver/periph_ctrl.h \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
@@ -388,12 +385,6 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
 /home/ryan/projects/BibClock/firmware/main/./nettime.h:
 
 /home/ryan/projects/BibClock/firmware/main/./dimmer.h:
-
-/home/ryan/esp/esp-idf/components/driver/include/driver/timer.h:
-
-/home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h:
-
-/home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h:
 
 /home/ryan/esp/esp-idf/components/driver/include/driver/ledc.h:
 

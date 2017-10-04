@@ -16,33 +16,52 @@ void initTimeManager(void) {
   ESP_LOGI("example", "The current date/time in New York is: %s", strftime_buf);
 }
 
-void setAlarm(int hour, int minutes) {
+void setAlarm(int hour, int minutes, int lengthInMinutes) {
   alarmHour = hour;
   alarmMinutes = minutes;
-  alarmSet = true;
-  calculateAlarmOffTime();
+  alarmLengthInMins = lengthInMinutes;
+  alarmState = ALARM_SET;
+  calculateAlarmTimeOutBeginTime();
 }
 
-void setAlarmOffTime(int timeInMinutes) {
-  alarmLengthInMins = timeInMinutes;
+void setAlarmTimeout(int timeOutInMinutes) {
+  alarmTimeoutTime = timeOutInMinutes;
   calculateAlarmOffTime();
 }
 
 void calculateAlarmOffTime(void) {
-  alarmOffTime = (alarmHour * 60) + alarmMinutes + alarmLengthInMins;
+  alarmOffTime = alarmTimeoutTimeStart + alarmTimeoutTime;
+}
+
+void calculateAlarmTimeOutBeginTime(void) {
+  alarmTimeoutTimeStart = (alarmHour * 60) + alarmMinutes + alarmLengthInMins;
 }
 
 bool checkAlarmOn(void) {
-  if(!alarmSet) {
-    alarmOn = false;
-  } else if(alarmOn) {
-    if(getTimeInMinutes() >= alarmOffTime) {
-      alarmOn = false;
-    }
-  } else {
-    alarmOn = (timeinfo.tm_hour == alarmHour) && (timeinfo.tm_min == alarmMinutes);
+  bool retValue = false;
+  switch(alarmState) {
+    case ALARM_SET:
+      if(timeinfo.tm_hour == alarmHour && timeinfo.tm_min == alarmMinutes) {
+        alarmState = ALARM_ON;
+        retValue = true;
+      }
+    break;
+    case ALARM_ON:
+      if(getTimeInMinutes() >= alarmTimeoutTimeStart) {
+        alarmState = ALARM_PERIOD_ENDED;
+      }
+      retValue = true;
+    break;
+    case ALARM_PERIOD_ENDED:
+      if(getTimeInMinutes() >= alarmOffTime) {
+        retValue = false;
+        alarmState = ALARM_OFF;
+      } else {
+        retValue = true;
+      }
+    break;
   }
-  return alarmOn;
+  return retValue;
 }
 
 int getTimeInMinutes() {
