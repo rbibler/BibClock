@@ -1,4 +1,6 @@
-main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
+dimmer.o: /home/ryan/projects/BibClock/firmware/main/./dimmer.c \
+ /home/ryan/projects/BibClock/firmware/main/./dimmer.h \
+ /home/ryan/projects/BibClock/firmware/main/./utils.h \
  /home/ryan/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/ryan/esp/esp-idf/components/newlib/include/sys/reent.h \
  /home/ryan/esp/esp-idf/components/newlib/include/_ansi.h \
@@ -105,27 +107,6 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/ip4_addr.h \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/ip6_addr.h \
  /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h \
- /home/ryan/esp/esp-idf/components/esp32/include/esp_event.h \
- /home/ryan/esp/esp-idf/components/esp32/include/esp_event_loop.h \
- /home/ryan/esp/esp-idf/components/nvs_flash/include/nvs_flash.h \
- /home/ryan/esp/esp-idf/components/nvs_flash/include/nvs.h \
- /home/ryan/projects/BibClock/firmware/main/./sevendigit.h \
- /home/ryan/projects/BibClock/firmware/main/./utils.h \
- /home/ryan/esp/esp-idf/components/newlib/include/string.h \
- /home/ryan/esp/esp-idf/components/newlib/include/sys/string.h \
- /home/ryan/esp/esp-idf/components/freertos/include/freertos/event_groups.h \
- /home/ryan/esp/esp-idf/components/freertos/include/freertos/timers.h \
- /home/ryan/esp/esp-idf/components/freertos/include/freertos/task.h \
- /home/ryan/esp/esp-idf/components/log/include/esp_log.h \
- /home/ryan/esp/esp-idf/components/log/include/esp_log_internal.h \
- /home/ryan/esp/esp-idf/components/newlib/include/math.h \
- /home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/err.h \
- /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/sntp/sntp.h \
- /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/sntp/sntp_opts.h \
- /home/ryan/projects/BibClock/firmware/main/./wifimanager.h \
- /home/ryan/projects/BibClock/firmware/main/./timemanager.h \
- /home/ryan/projects/BibClock/firmware/main/./nettime.h \
- /home/ryan/projects/BibClock/firmware/main/./dimmer.h \
  /home/ryan/esp/esp-idf/components/driver/include/driver/timer.h \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_struct.h \
@@ -134,6 +115,10 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/dport_reg.h \
  /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h \
  /home/ryan/esp/esp-idf/components/esp32/include/esp_dport_access.h
+
+/home/ryan/projects/BibClock/firmware/main/./dimmer.h:
+
+/home/ryan/projects/BibClock/firmware/main/./utils.h:
 
 /home/ryan/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h:
 
@@ -347,48 +332,6 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
 
 /home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/dhcpserver.h:
 
-/home/ryan/esp/esp-idf/components/esp32/include/esp_event.h:
-
-/home/ryan/esp/esp-idf/components/esp32/include/esp_event_loop.h:
-
-/home/ryan/esp/esp-idf/components/nvs_flash/include/nvs_flash.h:
-
-/home/ryan/esp/esp-idf/components/nvs_flash/include/nvs.h:
-
-/home/ryan/projects/BibClock/firmware/main/./sevendigit.h:
-
-/home/ryan/projects/BibClock/firmware/main/./utils.h:
-
-/home/ryan/esp/esp-idf/components/newlib/include/string.h:
-
-/home/ryan/esp/esp-idf/components/newlib/include/sys/string.h:
-
-/home/ryan/esp/esp-idf/components/freertos/include/freertos/event_groups.h:
-
-/home/ryan/esp/esp-idf/components/freertos/include/freertos/timers.h:
-
-/home/ryan/esp/esp-idf/components/freertos/include/freertos/task.h:
-
-/home/ryan/esp/esp-idf/components/log/include/esp_log.h:
-
-/home/ryan/esp/esp-idf/components/log/include/esp_log_internal.h:
-
-/home/ryan/esp/esp-idf/components/newlib/include/math.h:
-
-/home/ryan/esp/esp-idf/components/lwip/include/lwip/lwip/err.h:
-
-/home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/sntp/sntp.h:
-
-/home/ryan/esp/esp-idf/components/lwip/include/lwip/apps/sntp/sntp_opts.h:
-
-/home/ryan/projects/BibClock/firmware/main/./wifimanager.h:
-
-/home/ryan/projects/BibClock/firmware/main/./timemanager.h:
-
-/home/ryan/projects/BibClock/firmware/main/./nettime.h:
-
-/home/ryan/projects/BibClock/firmware/main/./dimmer.h:
-
 /home/ryan/esp/esp-idf/components/driver/include/driver/timer.h:
 
 /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/timer_group_reg.h:
@@ -404,4 +347,4 @@ main.o: /home/ryan/projects/BibClock/firmware/main/./main.c \
 /home/ryan/esp/esp-idf/components/soc/esp32/include/soc/dport_access.h:
 
 /home/ryan/esp/esp-idf/components/esp32/include/esp_dport_access.h:
-/home/ryan/projects/BibClock/firmware/main/./main.c:
+/home/ryan/projects/BibClock/firmware/main/./dimmer.c:

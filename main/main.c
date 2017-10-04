@@ -12,13 +12,15 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "esp_log.h"
-#include "esp_attr.h"
+#include <math.h>
+//#include "esp_attr.h"
 #include "esp_sleep.h"
 
 #include "lwip/err.h"
 #include "apps/sntp/sntp.h"
 #include "wifimanager.h"
 #include "timemanager.h"
+#include "dimmer.h"
 
 uint8_t curDigitValues[] = {0,1,2,3};
 uint8_t digitDots[] = {1, 0, 0, 1};
@@ -26,6 +28,7 @@ bool digitDirections[] = {false, true, false, true};
 void updateDisplay(void);
 long lastTime;
 static const char *TAG = "example";
+int curDimmer = 0;
 
 void updateTimeDigits(void);
 
@@ -33,19 +36,51 @@ void app_main(void)
 {
   initTimeManager();
   sevenDigitInit();
-  setAlarm(17, 18);
-  setAlarmOffTime(3);
+  dimmerInit();
+  setDimmer(1);
+  setAlarm(20, 15);
+  setAlarmOffTime(10);
+
+
   while (true) {
     updateDisplay();
     long time = (xTaskGetTickCount() / portTICK_PERIOD_MS);
     if(time - lastTime >= 500) {
       updateTimeDigits();
-      if(checkAlarmOn()) {
-        digitDots[3] = 0;
-      } else {
-        digitDots[3] = 1;
-      }
+      alarm_check();
       lastTime = time;
+    }
+  }
+}
+
+// This function calculates the new dimmer grayscale value using an
+// exponetial growth formula to ensure gradual dimming in the lower levels
+// Otherwise the brightness increases too quickly.
+// rate is calculated based on growth from 1 to 512 in 20 minutes.
+// TO-DO: Calculate rate based on arbitrary time.
+bool exponential_led_dimmer_increase(void) {
+  double rateTime = .0026 * curDimmer;
+  double newDim = exp(rateTime);
+  setDimmer((int) newDim);
+  curDimmer++;
+  if(curDimmer >= 2400) {
+    curDimmer = 2400;
+    return true;
+  }
+}
+
+void alarm_check() {
+  if(checkAlarmOn()) {
+    if(curDimmer == 0) {
+      curDimmer = 1;
+    }
+    if(exponential_led_dimmer_increase()) {
+      
+    }
+  } else {
+    if(curDimmer > 0) {
+      curDimmer = 0;
+      setDimmer(0);
     }
   }
 }
@@ -53,7 +88,7 @@ void app_main(void)
 void updateDisplay(void) {
   for(int i = 0; i < 4; i++) {
     displayDigit(i, curDigitValues[i], digitDots[i], digitDirections[i]);
-    vTaskDelay(2 / portTICK_PERIOD_MS);
+    //vTaskDelay(2 / portTICK_PERIOD_MS);
   }
 }
 
