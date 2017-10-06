@@ -20,7 +20,7 @@
 #define GCLK_RES      LEDC_TIMER_10_BIT
 #define BLNK_RES      LEDC_TIMER_10_BIT
 
-#define MAX_VALUE 511
+#define MAX_VALUE 511S
 
 void dimmerInit(void);
 void setDimmer(int gs);
