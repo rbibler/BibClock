@@ -23,11 +23,14 @@
 #include "dimmer.h"
 
 uint8_t curDigitValues[] = {0,1,2,3};
-uint8_t digitDots[] = {1, 0, 0, 1};
+uint8_t digitDots[] = {0, 1, 1, 0};
+
 bool digitDirections[] = {false, true, false, true};
-void updateDisplay(void);
+
 long lastTime;
+
 static const char *TAG = "example";
+
 int curDimmer = 0;
 
 void updateTimeDigits(void);
@@ -37,14 +40,15 @@ void app_main(void)
 {
   initTimeManager();
   sevenDigitInit();
+  displayDigit(0, 3, 1, false);
   dimmerInit();
-  setDimmer(1);
-  setAlarm(7, 44, 20);
+  setDimmer(0);
+  setAlarm(12, 03, 20);
   setAlarmTimeout(4);
   while (true) {
-    updateDisplay();
+
     long time = (xTaskGetTickCount() / portTICK_PERIOD_MS);
-    if(time - lastTime >= 500) {
+    if(time - lastTime >= 1000) {
       updateTimeDigits();
       alarm_check();
       lastTime = time;
@@ -86,13 +90,6 @@ void alarm_check() {
   }
 }
 
-void updateDisplay(void) {
-  for(int i = 0; i < 4; i++) {
-    displayDigit(i, curDigitValues[i], digitDots[i], digitDirections[i]);
-    //vTaskDelay(2 / portTICK_PERIOD_MS);
-  }
-}
-
 void updateTimeDigits(void) {
   time(&now);
   localtime_r(&now, &timeinfo);
@@ -100,15 +97,32 @@ void updateTimeDigits(void) {
   int hour = timeinfo.tm_hour;
   if(hour > 12) {
     hour -= 12;
-    digitDots[0] = 0;
-  } else {
     digitDots[0] = 1;
+  } else {
+    digitDots[0] = 0;
   }
-  curDigitValues[0] = min % 10;
-  curDigitValues[1] = min / 10;
-  curDigitValues[2] = hour % 12;
-  curDigitValues[3] = hour / 12;
-  if(curDigitValues[3] == 0) {
-    curDigitValues[3] = 10;
+  int newMinOnes = min % 10;
+  int newMinTens = min / 10;
+  int newHrOnes = hour % 10;
+  int newHrTens = hour / 10;
+
+  if(newMinOnes != curDigitValues[0]) {
+    displayDigit(0, newMinOnes, digitDots[0], digitDirections[0]);
   }
+  if(newMinTens != curDigitValues[1]) {
+    displayDigit(1, newMinTens, digitDots[1], digitDirections[1]);
+  }
+  if(newHrOnes != curDigitValues[2]) {
+    displayDigit(2, newHrOnes, digitDots[2], digitDirections[2]);
+  }
+  if(newHrTens != curDigitValues[3]) {
+    displayDigit(3, newHrTens == 0 ? SEVEN_DIGIT_BLANK : newHrTens, digitDots[3], digitDirections[3]);
+  }
+
+
+  curDigitValues[0] = newMinOnes;
+  curDigitValues[1] = newMinTens;
+  curDigitValues[2] = newHrOnes;
+  curDigitValues[3] = newHrTens;
+
 }
